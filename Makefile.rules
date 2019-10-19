@@ -19,7 +19,8 @@ SOURCE_PATH   += $(BOLOS_SDK)/src $(foreach libdir, $(SDK_SOURCE_PATH), $(dir $(
 SOURCE_FILES  := $(foreach path, $(SOURCE_PATH),$(shell find $(path) | grep "\.c$$") ) $(GLYPH_DESTC)
 INCLUDES_PATH := $(dir $(foreach libdir, $(SDK_SOURCE_PATH), $(dir $(shell find $(BOLOS_SDK)/$(libdir) | grep "\.h$$")))) include $(BOLOS_SDK)/include $(BOLOS_SDK)/include/arm $(dir $(foreach libdir, $(APP_SOURCE_PATH), $(dir $(shell find $(libdir) | grep "\.h$$"))))
 
-VPATH := $(dir $(SOURCE_FILES))
+NOT_VPATH := $(dir $(SOURCE_FILES))
+VPATH := $(foreach path, $(NOT_VPATH),$(shell grealpath -s $(path)))
 OBJECT_FILES := $(sort $(addprefix obj/, $(addsuffix .o, $(basename $(notdir $(SOURCE_FILES))))))
 DEPEND_FILES := $(sort $(addprefix dep/, $(addsuffix .d, $(basename $(notdir $(SOURCE_FILES))))))
 
