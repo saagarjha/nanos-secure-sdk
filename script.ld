@@ -74,9 +74,10 @@ SECTIONS
     _install_parameters = .;
     PROVIDE(N_install_parameters = .);
     _envram = .;
-    _nvram_data_size = _envram - _nvram_data;
     
   } > FLASH = 0x00
+
+  _nvram_data_size = _envram - _nvram_data;
 
   .data (NOLOAD):
   {
